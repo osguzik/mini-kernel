@@ -144,7 +144,7 @@ override LDFLAGS += \
     -Wl,-z,max-page-size=0x1000 \
     -Wl,-z,noexecstack \
     -Wl,--gc-sections \
-    -Wl,-T,linker-scripts/x86_64.lds \
+    -Wl,-T,linker.lds \
     -Wl,-m,elf_x86_64
 
 # Check that the compiler works with the given flags, as the checks below
@@ -287,7 +287,7 @@ $(VARSFILES):
 	@printf '%s\n' '$(subst ','\'',$($(notdir $@)))' > $@
 
 # Link rules for the final executable.
-bin/$(OUTPUT): GNUmakefile obj/CC obj/CFLAGS obj/LDFLAGS linker-scripts/x86_64.lds $(OBJ)
+bin/$(OUTPUT): Makefile obj/CC obj/CFLAGS obj/LDFLAGS linker.lds $(OBJ)
 	mkdir -p "$(dir $@)"
 	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJ) -o $@
 
@@ -296,17 +296,17 @@ bin/$(OUTPUT): GNUmakefile obj/CC obj/CFLAGS obj/LDFLAGS linker-scripts/x86_64.l
 obj/src/memory.c.o obj/freestanding-lgrt/src/freestanding-lgrt.c.o: override CFLAGS += -fno-lto
 
 # Compilation rules for *.c files.
-obj/%.c.o: %.c GNUmakefile obj/CC obj/CFLAGS obj/CPPFLAGS
+obj/%.c.o: %.c Makefile obj/CC obj/CFLAGS obj/CPPFLAGS
 	mkdir -p "$(dir $@)"
 	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
 # Compilation rules for *.S files.
-obj/%.S.o: %.S GNUmakefile obj/CC obj/CFLAGS obj/CPPFLAGS
+obj/%.S.o: %.S Makefile obj/CC obj/CFLAGS obj/CPPFLAGS
 	mkdir -p "$(dir $@)"
 	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
 # Compilation rules for *.asm (nasm) files.
-obj/%.asm.o: %.asm GNUmakefile obj/NASMFLAGS
+obj/%.asm.o: %.asm Makefile obj/NASMFLAGS
 	mkdir -p "$(dir $@)"
 	nasm $(NASMFLAGS) -MD $(@:.o=.d) -MP $< -o $@
 
