@@ -5,3 +5,13 @@
 /iso_root
 *.iso
 *.hdd
+
+# kernel build
+/kernel/compile_commands.json
+/kernel/.cache
+/kernel/.deps-obtained
+/kernel/freestanding-c-hdrs
+/kernel/freestanding-lgrt
+/kernel/limine-protocol
+/kernel/bin
+/kernel/obj
