@@ -107,6 +107,7 @@ override CFLAGS += \
 # Internal C preprocessor flags that should not be changed by the user.
 override CPPFLAGS := \
     -nostdinc \
+	-I include \
     -I src \
     -I limine-protocol/include \
     -isystem freestanding-c-hdrs/include \
@@ -293,7 +294,7 @@ bin/$(OUTPUT): Makefile obj/CC obj/CFLAGS obj/LDFLAGS linker.lds $(OBJ)
 
 # The compiler may emit calls to the memory functions and the compiler
 # runtime that LTO does not account for, so never build those with LTO.
-obj/src/memory.c.o obj/freestanding-lgrt/src/freestanding-lgrt.c.o: override CFLAGS += -fno-lto
+obj/src/lib/string.c.o obj/freestanding-lgrt/src/freestanding-lgrt.c.o: override CFLAGS += -fno-lto
 
 # Compilation rules for *.c files.
 obj/%.c.o: %.c Makefile obj/CC obj/CFLAGS obj/CPPFLAGS
