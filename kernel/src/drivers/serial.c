@@ -31,8 +31,10 @@ static int is_transmit_empty() {
 }
 
 void serial_putc(char c) {
+    if (c == '\n') {
+        serial_putc('\r');
+    }
     while (is_transmit_empty() == 0);
-
     outb(COM1, c);
 }
 

@@ -71,9 +71,7 @@ static void fb_pattern(struct limine_framebuffer *fb) {
 // linker script accordingly.
 void kmain(void) {
     serial_init();
-    serial_puts("line 1\n");
-    serial_puts("line 2\n");
-    serial_puts("line 3\n");
+    serial_puts("mini-kernel: serial ok\n");
 
     // Ensure the bootloader actually understands our base revision (see spec).
     if (LIMINE_BASE_REVISION_SUPPORTED(limine_base_revision) == false) {
