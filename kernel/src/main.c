@@ -1,3 +1,5 @@
+#include "serial.h"
+
 #include <stdint.h>
 #include <stddef.h>
 #include <stdbool.h>
@@ -68,6 +70,9 @@ static void fb_pattern(struct limine_framebuffer *fb) {
 // If renaming kmain() to something else, make sure to change the
 // linker script accordingly.
 void kmain(void) {
+    serial_init();
+    serial_puts("mini-kernel: serial ok\n");
+
     // Ensure the bootloader actually understands our base revision (see spec).
     if (LIMINE_BASE_REVISION_SUPPORTED(limine_base_revision) == false) {
         hcf();
