@@ -60,6 +60,9 @@ void kprintf(const char *fmt, ...) {
         case 'x':
             print_uint(is_long ? va_arg(args, uint64_t) : va_arg(args, unsigned int), 16);
             break;
+        case 'p':
+            serial_puts("0x");
+            print_uint((uintptr_t)va_arg(args, void *), 16);
         case 'c':
             serial_putc((char)va_arg(args, int));
             break;
