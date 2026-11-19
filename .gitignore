@@ -15,3 +15,7 @@
 /kernel/limine-protocol
 /kernel/bin
 /kernel/obj
+
+# VS Code
+.vscode/*
+!.vscode/launch.json

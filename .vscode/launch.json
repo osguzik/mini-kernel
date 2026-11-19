@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Mini-Kernel (QEMU)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/kernel/bin/kernel",
+            "cwd": "${workspaceFolder}",
+            "MIMode": "gdb",
+            "miDebuggerPath": "gdb",
+            "miDebuggerServerAddress": "localhost:1234",
+            "stopAtConnect": true,
+            "launchCompleteCommand": "None",
+            "externalConsole": false
+        }
+    ]
+}
