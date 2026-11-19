@@ -1,3 +1,4 @@
+#include "kprintf.h"
 #include "serial.h"
 
 #include <stdint.h>
@@ -71,7 +72,7 @@ static void fb_pattern(struct limine_framebuffer *fb) {
 // linker script accordingly.
 void kmain(void) {
     serial_init();
-    serial_puts("mini-kernel: serial ok\n");
+    kprintf("mini-kernel: booting\n");
 
     // Ensure the bootloader actually understands our base revision (see spec).
     if (LIMINE_BASE_REVISION_SUPPORTED(limine_base_revision) == false) {
@@ -83,6 +84,10 @@ void kmain(void) {
      || framebuffer_request.response->framebuffer_count < 1) {
         hcf();
     }
+
+    struct limine_framebuffer *fb = framebuffer_request.response->framebuffers[0];
+    kprintf("framebuffer: mode=%lux%lux%u, pitch=%lu, addr=%p\n",
+            fb->width, fb->height, fb->bpp, fb->pitch, fb->address);
 
     // Print the pattern to every framebuffer.
     for (uint64_t i = 0; i < framebuffer_request.response->framebuffer_count; i++) {
