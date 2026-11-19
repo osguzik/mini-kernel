@@ -37,6 +37,7 @@ void kprintf(const char *fmt, ...) {
     while (*fmt) {
         if (*fmt != '%') {
             serial_putc(*fmt);
+            fmt++;
             continue;
         }
 
@@ -63,6 +64,7 @@ void kprintf(const char *fmt, ...) {
         case 'p':
             serial_puts("0x");
             print_uint((uintptr_t)va_arg(args, void *), 16);
+            break;
         case 'c':
             serial_putc((char)va_arg(args, int));
             break;
@@ -80,6 +82,8 @@ void kprintf(const char *fmt, ...) {
             serial_putc(*fmt);
             break;
         }
+
+        fmt++;
     }
 
     va_end(args);
