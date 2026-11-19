@@ -61,7 +61,7 @@ make debug          #BIOS
 make debug-uefi     #UEFI
 ```
 
-VS Code:
+VS Code (after launching QEMU!):
 1. Choose project's .c file in VS Code
 2. Upper panel->Run->Start Debugging
 3. Set breakpoint in .c file
