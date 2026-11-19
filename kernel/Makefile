@@ -33,7 +33,7 @@ ifeq ($(TOOLCHAIN),llvm)
 endif
 
 # User controllable C flags.
-CFLAGS := -g -O2 -pipe
+CFLAGS := -g -O2 -pipe # -02 may be changed to -00 if there are problems with debugging COMMENT BY Paciej400
 
 # User controllable C preprocessor flags. We set none by default.
 CPPFLAGS :=
