@@ -24,7 +24,7 @@ make run        # BIOS
 make run-uefi   # UEFI
 ```
 
-## Debug with GDB in terminal
+## Debug with GDB
 
 ### Dependencies for debugging
 
@@ -55,10 +55,12 @@ quit            # after closing QEMU (you may start another debugging session
 For more information about gdb use ```man gdb``` or visit https://www.qemu.org/docs/master/system/gdb.html
 
 ### Debugging with VS Code
+
 ```
 make debug          #BIOS
 make debug-uefi     #UEFI
 ```
+
 VS Code:
 1. Choose project's .c file in VS Code
 2. Upper panel->Run->Start Debugging
