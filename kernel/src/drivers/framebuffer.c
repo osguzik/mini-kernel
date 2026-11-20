@@ -24,3 +24,11 @@ void fb_putpixel(uint32_t x, uint32_t y, uint32_t color) {
     volatile uint32_t *fb_ptr = current_fb->address;
     fb_ptr[y * (current_fb->pitch / 4) + x] = color;
 }
+
+void fb_fillrect(uint32_t x, uint32_t y, uint32_t w, uint32_t h, uint32_t color) {
+    for (uint32_t dy = 0; dy < h; dy++) {
+        for (uint32_t dx = 0; dx < w; dx++) {
+            fb_putpixel(x + dx, y + dy, color);
+        }
+    }
+}
