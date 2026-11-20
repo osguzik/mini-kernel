@@ -24,45 +24,28 @@ make run        # BIOS
 make run-uefi   # UEFI
 ```
 
-## Debug with GDB
+## Debugging
 
-### Dependencies for debugging
+Requires GDB (`sudo apt install gdb`)
 
-- GDB
-- C/C++ extension (for debugging in Visual Studio Code)
+Start QEMU paused, waiting for GDB:
 
-### Debugging in another session in terminal
-
-First session in terminal
 ```
-make debug          #BIOS
-make debug-uefi     #UEFI
+make debug          # BIOS
+make debug-uefi     # UEFI
 ```
-Second session in terminal (also in project's root directory)
+
+In a second terminal (from the project root):
+
 ```
 gdb kernel/bin/kernel
-target remote localhost:1234    # connection with debug data sent by QEMU
-break kmain     # setting breakpoint in kmain(). Use hbreak if break fails.
-c               # program continues until the next breakpoint
-layout src      # showing code 
-layout regs     # showing registers
-next            # one instuction
-step            # also one instruction, but includes entering to other functions
-c               # the same as continue
-quit            # after closing QEMU (you may start another debugging session 
-                # without quitting by using target remote localhost:1234)
-```
-For more information about gdb use ```man gdb``` or visit https://www.qemu.org/docs/master/system/gdb.html
-
-### Debugging with VS Code
-
-```
-make debug          #BIOS
-make debug-uefi     #UEFI
+(gdb) target remote :1234
+(gdb) break kmain           # use hbreak if the breakpoint is not hit
+(gdb) continue
 ```
 
-VS Code (after launching QEMU!):
-1. Choose project's .c file in VS Code
-2. Upper panel->Run->Start Debugging
-3. Set breakpoint in .c file
-4. Use standard VS Code GUI for debugging
+For easier stepping, build without optimizations: `make debug CFLAGS="-g -O0 -pipe"`
+
+In VS Code, run `make debug` and then use **Run->Start Debugging** (configured in `.vscode/launch.json`)
+
+See also: https://www.qemu.org/docs/master/system/gdb.html
