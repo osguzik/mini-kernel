@@ -15,12 +15,18 @@ static uint32_t fb_channel(uint8_t value, uint8_t mask_size, uint8_t mask_shift)
 }
 
 uint32_t fb_rgb(uint8_t r, uint8_t g, uint8_t b) {
+    if (!current_fb) {
+        return 0;
+    }
     return fb_channel(r, current_fb->red_mask_size, current_fb->red_mask_shift)
          | fb_channel(g, current_fb->green_mask_size, current_fb->green_mask_shift)
          | fb_channel(b, current_fb->blue_mask_size, current_fb->blue_mask_shift);    
 }
 
 void fb_putpixel(uint32_t x, uint32_t y, uint32_t color) {
+    if (!current_fb || x >= current_fb->width || y >= current_fb->height) {
+        return;
+    }
     volatile uint32_t *fb_ptr = current_fb->address;
     fb_ptr[y * (current_fb->pitch / 4) + x] = color;
 }
