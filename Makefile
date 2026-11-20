@@ -62,6 +62,14 @@ run-uefi: edk2-ovmf-bins $(IMAGE_NAME).iso
 		-boot d \
 		$(QEMUFLAGS)
 
+.PHONY: debug
+debug:
+	$(MAKE) run QEMUFLAGS="$(QEMUFLAGS) -s -S"
+
+.PHONY: debug-uefi
+debug-uefi:
+	$(MAKE) run-uefi QEMUFLAGS="$(QEMUFLAGS) -s -S"
+
 .PHONY: run-hdd
 run-hdd: $(IMAGE_NAME).hdd
 	qemu-system-x86_64 \
