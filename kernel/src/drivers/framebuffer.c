@@ -1,4 +1,5 @@
 #include "framebuffer.h"
+#include "font.h"
 
 static struct limine_framebuffer *current_fb;
 
@@ -34,6 +35,20 @@ void fb_fillrect(uint32_t x, uint32_t y, uint32_t w, uint32_t h, uint32_t color)
     for (uint32_t dy = 0; dy < h; dy++) {
         for (uint32_t dx = 0; dx < w; dx++) {
             fb_putpixel(x + dx, y + dy, color);
+        }
+    }
+}
+
+void fb_drawchar(char c, uint32_t x, uint32_t y, uint32_t fg, uint32_t bg) {
+    const uint8_t *glyph = font[(uint8_t)c];
+
+    for (uint32_t row = 0; row < FONT_HEIGHT; row++) {
+        for (uint32_t col = 0; col < FONT_WIDTH; col++) {
+            if (glyph[row] & (0x80 >> col)) {
+                fb_putpixel(x + col, y + row, fg);
+            } else {
+                fb_putpixel(x + col, y + row, bg);
+            }
         }
     }
 }
