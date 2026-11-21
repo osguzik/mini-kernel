@@ -69,6 +69,10 @@ void kmain(void) {
 
     fb_init(fb);
     fb_fillrect(0, 0, fb->width, fb->height, fb_rgb(0, 0, 0));
+    const char *title = "mini-kernel";
+    for (uint32_t i = 0; title[i] != '\0'; i++) {
+        fb_drawchar(title[i], i * 8, 0, fb_rgb(255, 255, 255), fb_rgb(0, 0, 0));
+    }
 
     // We're done, just hang...
     hcf();
