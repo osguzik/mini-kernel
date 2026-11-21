@@ -43,16 +43,12 @@ void fb_drawchar(char c, uint32_t x, uint32_t y, uint32_t fg, uint32_t bg) {
     const uint8_t *glyph = font[(uint8_t)c];
 
     for (uint32_t row = 0; row < FONT_HEIGHT; row++) {
-        uint8_t bits = glyph[row];
-        uint8_t mask = 0x80;
-
         for (uint32_t col = 0; col < FONT_WIDTH; col++) {
-            if (bits & mask) {
+            if (glyph[row] & (0x80 >> col)) {
                 fb_putpixel(x + col, y + row, fg);
             } else {
                 fb_putpixel(x + col, y + row, bg);
             }
-            mask = mask >> 1;
         }
     }
 }
