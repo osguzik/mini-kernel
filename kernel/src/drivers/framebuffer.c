@@ -1,8 +1,7 @@
 #include "framebuffer.h"
 
-#include <stddef.h>
+static struct limine_framebuffer *current_fb;
 
-static struct limine_framebuffer *current_fb = NULL;
 void fb_init(struct limine_framebuffer *fb) {
     current_fb = fb;
 }
@@ -20,7 +19,7 @@ uint32_t fb_rgb(uint8_t r, uint8_t g, uint8_t b) {
     }
     return fb_channel(r, current_fb->red_mask_size, current_fb->red_mask_shift)
          | fb_channel(g, current_fb->green_mask_size, current_fb->green_mask_shift)
-         | fb_channel(b, current_fb->blue_mask_size, current_fb->blue_mask_shift);    
+         | fb_channel(b, current_fb->blue_mask_size, current_fb->blue_mask_shift);
 }
 
 void fb_putpixel(uint32_t x, uint32_t y, uint32_t color) {

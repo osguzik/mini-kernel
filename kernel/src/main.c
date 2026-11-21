@@ -63,6 +63,10 @@ void kmain(void) {
     kprintf("framebuffer: mode=%lux%lux%u, pitch=%lu, addr=%p\n",
             fb->width, fb->height, fb->bpp, fb->pitch, fb->address);
 
+    if (fb->memory_model != LIMINE_FRAMEBUFFER_RGB || fb->bpp != 32) {
+        hcf();
+    }
+
     fb_init(fb);
     fb_fillrect(0, 0, fb->width, fb->height, fb_rgb(0, 0, 0));
 
